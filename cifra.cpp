@@ -4,15 +4,11 @@ using namespace std;
 
 string Cifra(string frase, int chave) {
     int tamanhoDaFrase = frase.size();
+    
     for (int i = 0; i < tamanhoDaFrase; i++) {
-        char letraAtual = frase[i];
-
+        char letraAtual = frase[i];  
         
-        // Mantém caracteres especiais de 33 a 47 inalterados
-        /*if (c >= '!' && c <= '/') {
-            continue;
-        }*/
-        if(letraAtual == ' '){
+        if(letraAtual == ' '){  //mantem o espaço sem alteração
             continue;
         }
         // Letras maiúsculas

@@ -2,34 +2,25 @@
 
 using namespace std;
 
-int Piso(float alfa){
+int Piso(float alfa) {
     int piso = 0;
 
-    if(alfa>0){
-        for(int i = alfa;i>0;i--){
+    if (alfa >= 0) {
+        while (piso <= alfa) {
             piso++;
-            //cout<<piso<<endl;
-            if(piso == alfa){
-                return piso;
-            }
         }
-    }
-    if(alfa<0){
-        for(int i = alfa;i<=0;i++){
+        return piso - 1;
+    } else {
+        while (piso > alfa) {
             piso--;
-            if(piso == alfa){
-                return piso;
-            }
-            
         }
         return piso;
     }
-    
-    return piso;
 }
+
 int main(){
     float a;
-    cout<<"Digite o numero que deseja implementar a funcao piso: ";
+    cout<<"Digite o numero para implementar a funcao piso: ";
     cin>>a;
     cout<<"O piso de "<<a<<" eh: "<<Piso(a);
     return 0;

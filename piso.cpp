@@ -29,7 +29,7 @@ int Piso(float alfa){
 }
 int main(){
     float a;
-    cout<<"Digite o numero para implementar a função piso: ";
+    cout<<"Digite o numero que deseja implementar a funcao piso: ";
     cin>>a;
     cout<<"O piso de "<<a<<" eh: "<<Piso(a);
     return 0;

@@ -3,31 +3,33 @@ using namespace std;
 
 // Função para calcular o MDC e os coeficientes de Bézout
 int euclidesEstendido(int a, int b, int &s, int &t) {
-    int s0 = 1, t0 = 0;
-    int s1 = 0, t1 = 1;
-    int r0 = a, r1 = b;
+    int s0 = 1, t0 = 0; // para resto = a
+    int s1 = 0, t1 = 1; // para resto = b
+    int resto_0 = a, resto_1 = b; //restos iniciais (a e b)
 
     cout << "Passo a passo:\n";
-    cout << "r0 = " << r0 << ", r1 = " << r1 << endl;
+    //exibe os estados iniciais de s e t
+    cout << "resto = " << resto_0 << " | quociente = # | s = " << s0 << " | t = " << t0 << "   => " << resto_0 << " = " << a << " * " << s0 << " + " << b << " * " << t0 << endl;
+    cout << "resto = " << resto_1 << " | quociente = # | s = " << s1 << " | t = " << t1 << "   => " << resto_1 << " = " << a << " * " << s1 << " + " << b << " * " << t1 << endl;
 
-    while (r1 != 0) {
-        int q = r0 / r1;
-        int r2 = r0%r1;//r0 - q * r1;
-        int s2 = s0 - q * s1;
-        int t2 = t0 - q * t1;
+    while (resto_1 != 0) {
+        int quociente = resto_0 / resto_1; //calcula o quociente da divis0a inteira
+        int resto_atual = resto_0 - quociente * resto_1; //calcula o resto pelo algoritmo de euclides a =b*q + r => r = a - b * q
+        int s_atual = s0 - quociente * s1; 
+        int t_atual = t0 - quociente * t1; 
 
-        cout << "r = " << r2 << " , q = " << q << " , s = " << s2 << " , t = " << t2 << endl;
+        cout << "resto = " << resto_atual << " | quociente = " << quociente << " | s = " << s_atual << " | t = " << t_atual << "   => " << resto_atual << " = " << resto_0 << " * " << s_atual << " + " << resto_1 << " * " << t_atual << endl;
 
-        // Avança para o próximo passo
-        r0 = r1; r1 = r2;
-        s0 = s1; s1 = s2;
-        t0 = t1; t1 = t2;
+        // Atualiza as variaveis para a proxima iteração
+        resto_0 = resto_1; resto_1 = resto_atual;
+        s0 = s1; s1 = s_atual;
+        t0 = t1; t1 = t_atual;
     }
 
-    // s0 e t0 satisfazem: a*s0 + b*t0 = mdc
-    s = s0;
-    t = t0;
-    return r0;
+    // s0 e t0 satisfazem: a*s0 + b*t0 = mdc(a,b)
+    s = s0; //s0 porque é o anterior ao resto 0
+    t = t0; //s1 porque é o anterior ao resto
+    return resto_0; //retorna o MDC 
 }
 
 
@@ -40,8 +42,9 @@ int main() {
     int mdc = euclidesEstendido(a, b, s, t);
 
     cout << "\nMDC(" << a << ", " << b << ") = " << mdc << endl;
-    cout << "Coeficientes de Bezout:\n";
+    cout << "\nCoeficientes de Bezout:\n";
     cout << "s = " << s << ", t = " << t << endl;
+    cout << "De acordo com o algoritmo de Euclides MDC = a * s + b * t" << endl; //explicativo
     cout << mdc << " = " << s << " * " << a << " + " << t << " * " << b << endl;
 
     return 0;

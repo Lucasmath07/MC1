@@ -1,61 +1,51 @@
 #include <iostream>
-
 using namespace std;
-int MDC(int a, int b){
-    if(a == 0 && b == 0){
-        cout<<"ERRO! O MDC de 0 e 0 eh indefinido. ERRO!\n";
+
+
+int MDC(int a, int b) {
+    
+    if (a == 0 && b == 0) { // MDC(0, 0) é indefinido
+        cout << "ERRO! O MDC de 0 e 0 eh indefinido.\n";
         return 0;
     }
+
+    // transforma os numeros em positivos já que o MDC é sempre positivo
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+
+    // caso um dos dois for zero o mdc é o outro (diferente de 0)
+    if (a == 0) {
+        cout << "O MDC de 0 e " << b << " eh: " << b << endl;
+        return b;
+    }
+    if (b == 0) {
+        cout << "O MDC de " << a << " e 0 eh: " << a << endl;
+        return a;
+    }
     
-    int mdc;
-    int res;
-    int valor_a = a;
-    int valor_b = b;
-    int maior = b; //variaveis para facilitar a construção logica
-    int menor = a;
+    while (b != 0) {
+        int resto = a % b;
+        cout << a << " / " << b << " = " << a / b << " e o resto eh: " << resto << endl;
 
-    if(a>b){
-        maior = a;
-        menor = b;
+        // Atualiza os valores
+        a = b;
+        b = resto;
     }
-    
-    if(menor < 0){menor = menor * -1;}
-    if(maior < 0){maior = maior * -1;}
 
-    if(valor_a < 0){valor_a = -valor_a;}
-    if(valor_b < 0){valor_b = -valor_b;}
-
-    if(a == 0){
-        cout << "O MDC de " << a << " e " << b << " eh: " << b << endl;
-        return 0;
-    }
-    if(b == 0){
-        cout << "O MDC de " << a << " e " << b << " eh: " << a << endl;
-    }
-    res = maior % menor;
-    cout << maior << " / " << menor << " = " << maior / menor << " e o resto eh: " << res << endl;
-    while(maior%menor != 0){
-        
-        res = maior % menor;
-        maior = menor;
-        menor = res;
-        cout << maior << " / " << menor << " = " << maior / menor << " e o resto eh: " << maior % menor << endl;
-    }
-    if(maior % menor == 0){
-        cout << "O MDC de " << a << " e " << b << " eh: " << menor << endl;
-    }
-    return 0;
-    
-
+    // 'a' neste ponto é o MDC, pois a recebe o resto anterior ao resto = 0
+    cout << "O MDC eh: " << a << endl;
+    return a;
 }
-int main(){
-    int a,b;
 
-    cout << "Digite os dois numeros que deseja calcular o MDC: ";
-    cin >> a;
-    cout << "Digite o proximo numero: ";
-    cin >> b;
-    MDC(a,b);
+int main() {
+    int a, b;
+
+   
+    cout << "Digite os dois numeros que deseja calcular o MDC:\n";
+    cin >> a >> b;
+
+    MDC(a, b);
 
     return 0;
 }
+

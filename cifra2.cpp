@@ -4,40 +4,43 @@
 using namespace std;
 
 void cifra(string frase, int chave){
-    string alfabeto={"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
-    string encriptados;
-    for(int i = 0; i < frase.size();i++){ 
-        if(encriptados[i]==' '){
+    string alfabeto_M = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string alfabeto_m = "abcdefghijklmnopqrstuvwxyz";
+
+    string encriptados = frase;  // Inicializa com o mesmo tamanho da frase original
+
+    for(int i = 0; i < frase.size(); i++){ 
+        if(frase[i] == ' '){
+            encriptados[i] = ' ';
             continue;
-        }   
-        for(int j = 0;j < 26;j++){
+        }
+
+        for(int j = 0; j < 26; j++){
             if(frase[i] == alfabeto[j]){
-                if(j+chave>26){
-                    encriptados[i]=alfabeto[(j+chave)%26];
-                }
-                else{
-                    encriptados[i] = alfabeto[j+chave];
-                }
+                encriptados[i] = alfabeto[(j + chave) % 26];
+                break;  // Pare depois de encontrar a letra
             }
-            
         }
     }
-    for(int i=0;i<frase.size();i++){
-        cout<<encriptados[i];
-    }
-    
 
+    cout << "Mensagem encriptada: " << encriptados << endl;
 }
+
 int main(){
     string frase;
     int chave;
 
-    cout<<"Digite a frase que deseja encriptar: ";
-    getline(cin,frase);
-    cout<<"Digite a chave de encriptação: ";
-    cin>>chave;
-    cifra(frase,chave);
-    
+    cout << "Digite a frase que deseja encriptar (apenas MAIÚSCULAS e MINÙSCULAS): ";
+    getline(cin, frase);
+    cout << "Digite a chave (0 a 25): ";
+    cin >> chave;
+
+    if (chave < 0 || chave > 26) {
+        cout << "Chave inválida. Use um valor entre 0 e 25.\n";
+        return 0;
+    }
+
+    cifra(frase, chave);
 
     return 0;
 }

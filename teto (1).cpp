@@ -13,7 +13,7 @@ int Teto(float alfa) {
         while (teto >= alfa) {
             teto--;
         }
-        return teto + 1;
+        return teto + 1;  //quando numero tem parte decimal teto termina uma unidade menor na parte inteira (ex.:-3.7 teto termina -4)
         
     }
 }
